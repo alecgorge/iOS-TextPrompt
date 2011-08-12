@@ -6,22 +6,20 @@
 //
 
 #import "TextPromptViewController.h"
-#import "OCPromptView.h"
+#import "TextPrompt.h"
 
 @implementation TextPromptViewController
 
 @synthesize label;
 
 - (IBAction)buttonPressed:(id)sender {
-	OCPromptView *alert = [[OCPromptView alloc] initWithPrompt:@"Enter some text:" delegate:self cancelButtonTitle:@"Cancel" acceptButtonTitle:@"OK"];
+	TextPrompt *alert = [[TextPrompt alloc] initWithPrompt:@"Enter some text:" obj:self action:@selector(onSave:) cancelButtonTitle:@"Cancel" acceptButtonTitle:@"Save"];
 	[alert show];
 	[alert release];
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-	if (buttonIndex != [alertView cancelButtonIndex]) {
-		[self.label setText:[(OCPromptView *)alertView enteredText]];
-	}
+- (void)onSave:(NSString*)t {
+	self.label.text = t;
 }
 
 - (void)viewDidUnload {
